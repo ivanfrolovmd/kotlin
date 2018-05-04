@@ -59,7 +59,7 @@ internal fun getProgressionLastElement(start: UInt, end: UInt, step: Int): UInt 
  */
 @PublishedApi
 internal fun getProgressionLastElement(start: ULong, end: ULong, step: Long): ULong = when {
-    step > 0 -> end - differenceModulo(end, start, step.toULong())
-    step < 0 -> end + differenceModulo(start, end, (-step).toULong())
+    step > 0 -> if (start >= end) end else end - differenceModulo(end, start, step.toULong())
+    step < 0 -> if (start <= end) end else end + differenceModulo(start, end, (-step).toULong())
     else -> throw kotlin.IllegalArgumentException("Step is zero.")
 }
